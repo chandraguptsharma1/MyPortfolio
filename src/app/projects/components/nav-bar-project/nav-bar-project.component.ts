@@ -1,27 +1,32 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {MediaService} from "../../../shared/services/media.service";
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { MediaService } from '../../../shared/services/media.service';
 
 @Component({
   selector: 'app-nav-bar-project',
   templateUrl: './nav-bar-project.component.html',
-  styleUrls: ['./nav-bar-project.component.scss']
+  styleUrls: ['./nav-bar-project.component.scss'],
 })
-export class NavBarProjectComponent implements OnInit{
+export class NavBarProjectComponent implements OnInit {
   isListOpen = false;
   screenWidth!: number;
   isMenuOpen = false;
   @Output() techSelected = new EventEmitter<string[]>();
   selectedTech: string[] = ['angular'];
-  inputCheckData: string[] = ['angular','react','vue','node_js','html','css']
-  constructor(private mediaService: MediaService) {
-  }
+  inputCheckData: string[] = [
+    'angular',
+    'react',
+    'node_js',
+    'android',
+    'java',
+    'firebase',
+  ];
+  constructor(private mediaService: MediaService) {}
 
   ngOnInit() {
-    this.screenWidth = this.mediaService.checkScreenWidth()
-    this.mediaService.initialResize().subscribe(width => {
-      this.screenWidth = width
-    })
-
+    this.screenWidth = this.mediaService.checkScreenWidth();
+    this.mediaService.initialResize().subscribe((width) => {
+      this.screenWidth = width;
+    });
   }
 
   updateSelectedTech(tech: string): void {
@@ -43,5 +48,4 @@ export class NavBarProjectComponent implements OnInit{
   toggleMenu(): void {
     this.isMenuOpen = !this.isMenuOpen;
   }
-
 }
